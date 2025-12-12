@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GuitarChops - Audio Segmentation Tool</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="https://unpkg.com/wavesurfer.js@7"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎸 GuitarChops</h1>
+            <p>Intelligent Audio Segmentation Tool</p>
+        </header>
+
+        <!-- File Info Section -->
+        <section class="file-info" id="fileInfo">
+            <h3>File Information</h3>
+            <div class="info-grid">
+                <div class="info-item">
+                    <span class="label">Filename:</span>
+                    <span id="infoFilename">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Duration:</span>
+                    <span id="infoDuration">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Sample Rate:</span>
+                    <span id="infoSamplerate">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Channels:</span>
+                    <span id="infoChannels">-</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Waveform Visualization -->
+        <section class="waveform-section hidden" id="waveformSection">
+            <h3>Waveform</h3>
+            <div class="waveform-controls">
+                <button id="playPauseBtn" class="btn">▶ Play</button>
+                <button id="stopBtn" class="btn">⏹ Stop</button>
+                <span class="time-display">
+                    <span id="currentTime">0:00</span> / <span id="totalTime">0:00</span>
+                </span>
+                <input type="range" id="zoomSlider" min="1" max="1000" value="1" step="1">
+                <span>Zoom</span>
+            </div>
+            <div id="waveform"></div>
+            <div id="timeline"></div>
+        </section>
+
+        <!-- Analysis Controls -->
+        <section class="analysis-section" id="analysisSection">
+            <h3>Audio Analysis</h3>
+            <div class="analysis-options">
+                <label>
+                    <input type="checkbodetectSilence" checked>
+                    Silence Detection
+                </label>
+                <label>
+                    <input type="checkbox" id="detectOnset" checked>
+                    Onset Detection
+                </label>
+                <label>
+                    <input type="checkbox" id="detectKey" checked>
+                    Key Detection
+                </label>
+                <label>
+                    <input type="checkbox" id="detectTempo" checked>
+                    Tempo Detection
+                </label>
+            </div>
+            <button id="analyzeBtn" class="btn btn-primary">🔍 Analyze Audio</button>
+            <div class="progress-bar hidden" id="progressBar">
+                <div class="progress-fill" id="progressFill"></div>
+                <span class="progress-text" id="progressText">Analyzing...</span>
+            </div>
+        </section>
+
+        <!-- Segments List -->
+        <section class="segments-section hidden" id="segmentsSection">
+            <h3>Detected Segments</h3>
+            <div class="segment-filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="silence_based">Silence</button>
+                <button class="filter-btn" data-filter="onset_based">Onsets</button>
+                <button class="filter-btn" data-filter="key_based">Key</button>
+                <button class="filter-btn" data-filter="tempo_based">Tempo</button>
+            </div>
+            <div class="segments-list" id="segmentsList"></div>
+            <div class="export-controls">
+                <button id="selectAllBtn" class="btn">Select All</button>
+                <button id="exportBtn" class="btn btn-primary" disabled>💾 Export Selected</button>
+                <span id="selectedCount">0 segments selected</span>
+            </div>
+        </section>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
